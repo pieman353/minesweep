@@ -24,6 +24,10 @@ class GameViewController: UIViewController {
                 // Present the scene
                 view.presentScene(scene)
             }
+            /*else if let scene = SKScene(fileNamed: "SelectScene") {
+                scene.scaleMode = .aspectFill
+                view.presentScene(scene)
+            } */
             
             view.ignoresSiblingOrder = true
             
