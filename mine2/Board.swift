@@ -11,13 +11,16 @@ import Foundation
 class Board {
     var size: Int
     var board: [[Character]]
+    var adjacentBombs: [[Int]]
     var bombs: [[Int]]
     
     init(boardSize: Int) {
         size = boardSize
         board = Array(repeating: Array(repeating: "*", count: size), count: size)
         bombs = [[Int]]()
+        adjacentBombs = Array(repeating: Array(repeating: 0, count: size), count: size)
         addBombs()
+        adjacentBombsGen()
         printBombs()
     }
     
@@ -25,6 +28,15 @@ class Board {
         for row in board {
             for elem in row {
                 print("\(elem)", terminator:"")
+            }
+            print("")
+        }
+    }
+    
+    func printAdjacentBombs() {
+        for row in adjacentBombs {
+            for elem in row {
+                print("\(elem) ", terminator:"")
             }
             print("")
         }
@@ -52,4 +64,37 @@ class Board {
         return bombs.contains([x, y])
     }
     
+    func isValidBomb(x: Int, y: Int) -> Int {
+        if x >= 0 && x < size && y >= 0 && y < size && bombs.contains([x, y]) {
+            return 1
+        }
+        else {
+            return 0
+        }
+    }
+    
+    func adjacentBombsGen() {
+        for i in 0..<size {
+            for j in 0..<size {
+                if !isBomb(x: i, y: j) {
+                    var numBombs = 0
+                    numBombs = numBombs + isValidBomb(x: i - 1, y: j - 1)
+                    numBombs = numBombs + isValidBomb(x: i - 1, y: j)
+                    numBombs = numBombs + isValidBomb(x: i - 1, y: j + 1)
+                    
+                    numBombs = numBombs + isValidBomb(x: i + 1, y: j - 1)
+                    numBombs = numBombs + isValidBomb(x: i + 1, y: j)
+                    numBombs = numBombs + isValidBomb(x: i + 1, y: j + 1)
+                    
+                    numBombs = numBombs + isValidBomb(x: i, y: j - 1)
+                    numBombs = numBombs + isValidBomb(x: i, y: j + 1)
+                    
+                    adjacentBombs[i][j] = numBombs
+                }
+                else {
+                    adjacentBombs[i][j] = 9
+                }
+            }
+        }
+    }
 }
