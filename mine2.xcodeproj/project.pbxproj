@@ -19,6 +19,7 @@
 		846D9F482271341500058DCA /* SelectScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 846D9F472271341500058DCA /* SelectScene.sks */; };
 		846D9F4A22713C1400058DCA /* boardScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D9F4922713C1400058DCA /* boardScene.swift */; };
 		846D9F4E22713C6200058DCA /* boardScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 846D9F4D22713C6200058DCA /* boardScene.sks */; };
+		846D9F502271439100058DCA /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D9F4F2271439100058DCA /* Board.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		846D9F472271341500058DCA /* SelectScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SelectScene.sks; sourceTree = "<group>"; };
 		846D9F4922713C1400058DCA /* boardScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = boardScene.swift; sourceTree = "<group>"; };
 		846D9F4D22713C6200058DCA /* boardScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = boardScene.sks; sourceTree = "<group>"; };
+		846D9F4F2271439100058DCA /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +83,7 @@
 				846D9F472271341500058DCA /* SelectScene.sks */,
 				846D9F4922713C1400058DCA /* boardScene.swift */,
 				846D9F4D22713C6200058DCA /* boardScene.sks */,
+				846D9F4F2271439100058DCA /* Board.swift */,
 			);
 			path = mine2;
 			sourceTree = "<group>";
@@ -162,6 +165,7 @@
 			files = (
 				846D9F322271300200058DCA /* GameScene.swift in Sources */,
 				846D9F342271300200058DCA /* GameViewController.swift in Sources */,
+				846D9F502271439100058DCA /* Board.swift in Sources */,
 				846D9F4A22713C1400058DCA /* boardScene.swift in Sources */,
 				846D9F44227133AB00058DCA /* SelectScene.swift in Sources */,
 				846D9F2C2271300200058DCA /* AppDelegate.swift in Sources */,

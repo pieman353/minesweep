@@ -24,6 +24,8 @@ class GameViewController: UIViewController {
                 // Present the scene
                 view.presentScene(scene)
             }
+            var board = Board(boardSize: 9)
+            board.printBoard()
             /*else if let scene = SKScene(fileNamed: "SelectScene") {
                 scene.scaleMode = .aspectFill
                 view.presentScene(scene)

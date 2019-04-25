@@ -22,16 +22,8 @@ class SelectScene: SKScene {
         }
         let touchLocation = touch.location(in: self)
         let touchedNode = self.atPoint(touchLocation)
+        touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         var boardSize = 0
-        /*if (touchedNode.name == "begin") {
-            print("touched begin")
-            touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-            //let newScene = SelectScene()
-            let newScene = SKScene(fileNamed: "SelectScene")
-            newScene!.scaleMode = scaleMode
-            let rev = SKTransition.fade(withDuration: 1.0)
-            view?.presentScene(newScene!, transition: rev)
-        } */
         switch (touchedNode.name) {
         case "9x9":
             boardSize = 9
