@@ -21,6 +21,8 @@ class boardScene: SKScene {
         self.camera = cam
         self.addChild(cam!)
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePinchFrom(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector (self.handleTapFrom(recognizer:)))
+        self.view?.addGestureRecognizer(tapGesture)
         self.view?.addGestureRecognizer(pinchGesture)
     }
     
@@ -34,6 +36,21 @@ class boardScene: SKScene {
             cam!.position.x += deltaX
         }
         
+    }
+    
+    @objc func handleTapFrom(recognizer: UITapGestureRecognizer) {
+        if recognizer.state != .ended {
+            return
+        }
+        let recognizerLoc = recognizer.location(in: recognizer.view!)
+        let loc = self.convertPoint(fromView: recognizerLoc)
+        guard let map = childNode(withName: "tileMap") as? SKTileMapNode else {
+            fatalError("Background node not loaded")
+        }
+        let col = map.tileColumnIndex(fromPosition: loc)
+        let row = map.tileRowIndex(fromPosition: loc)
+        let tile = map.tileDefinition(atColumn: col, row: row)
+        print("Column: \(col), Row: \(row)")
     }
     
     @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {
