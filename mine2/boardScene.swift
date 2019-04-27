@@ -13,28 +13,40 @@ class boardScene: SKScene {
     //var board: Board
     //var camera: SKCameraNode?
     
+    var cam: SKCameraNode?
+    var previousCameraScale = CGFloat()
+    
     override func didMove(to view: SKView) {
-        let camera = SKCameraNode(fileNamed: "cam")
+        cam = SKCameraNode()
+        self.camera = cam
+        self.addChild(cam!)
+        let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePinchFrom(_:)))
+        self.view?.addGestureRecognizer(pinchGesture)
     }
     
-    @objc func handlePinch(pinchGesture: UIPinchGestureRecognizer) {
-        if pinchGesture.state == .began || pinchGesture.state == .changed {
-            
-            let currentScale: CGFloat = (camera!.xScale)
-            let minScale: CGFloat = 0.5
-            let maxScale: CGFloat = 2.0
-            let zoomSpeed: CGFloat = 0.5
-            var deltaScale = pinchGesture.scale
-            
-            deltaScale = ((deltaScale - 1) * zoomSpeed) + 1
-            deltaScale = min(deltaScale, maxScale / currentScale)
-            deltaScale = max(deltaScale, minScale / currentScale)
-            
-            camera?.xScale = deltaScale
-            camera?.yScale = deltaScale
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?){
+        for touch in touches {
+            let location = touch.location(in: self)
+            let previousLocation = touch.previousLocation(in: self)
+            let deltaY = location.y - previousLocation.y
+            let deltaX = location.x - previousLocation.x
+            cam!.position.y += deltaY
+            cam!.position.x += deltaX
         }
         
     }
+    
+    @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {
+        print("pinch!")
+        guard let camera = self.camera else {
+            return
+        }
+        if sender.state == .began {
+            previousCameraScale = camera.xScale
+        }
+        camera.setScale(previousCameraScale * 1 / sender.scale)        }
+    
+    
     /*(init(b: Board) {
         board = b
         super.init()
