@@ -15,8 +15,24 @@ class boardScene: SKScene {
     
     var cam: SKCameraNode?
     var previousCameraScale = CGFloat()
+    var timerLabel: SKLabelNode?
+    var firstTap: Bool?
+    /*var timerValue = 0 {
+        didSet {
+            timerLabel!.text! = "\(minutes):\(seconds)"
+        }
+    } */
+    var minutes = 0
+    var seconds = 0 {
+        didSet {
+            print("did set!")
+            timerLabel!.text! = String(format: "%02d:%02d", minutes, seconds)
+        }
+    }
     
     override func didMove(to view: SKView) {
+        timerLabel = childNode(withName: "timer") as? SKLabelNode
+        firstTap = false
         cam = SKCameraNode()
         self.camera = cam
         self.addChild(cam!)
@@ -30,17 +46,39 @@ class boardScene: SKScene {
         for touch in touches {
             let location = touch.location(in: self)
             let previousLocation = touch.previousLocation(in: self)
-            let deltaY = location.y - previousLocation.y
-            let deltaX = location.x - previousLocation.x
+            let deltaY = previousLocation.y - location.y
+            let deltaX = previousLocation.x - location.x
             cam!.position.y += deltaY
             cam!.position.x += deltaX
         }
         
     }
     
+    func startTimer() {
+        print("Timer")
+        let wait = SKAction.wait(forDuration: 1)
+        let block = SKAction.run({
+            [unowned self] in
+            if self.seconds + 1 == 60 {
+                self.seconds = 0
+                self.minutes = self.minutes + 1
+            }
+            else {
+                self.seconds = self.seconds + 1
+            }
+            print("\(self.minutes):\(self.seconds)")
+        })
+        let sequence = SKAction.sequence([wait, block])
+        run(SKAction.repeatForever(sequence), withKey: "time")
+    }
+    
     @objc func handleTapFrom(recognizer: UITapGestureRecognizer) {
         if recognizer.state != .ended {
             return
+        }
+        if !firstTap! {
+            firstTap = true
+            startTimer()
         }
         let recognizerLoc = recognizer.location(in: recognizer.view!)
         let loc = self.convertPoint(fromView: recognizerLoc)
