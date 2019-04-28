@@ -99,8 +99,47 @@ class boardScene: SKScene {
         if sender.state == .began {
             previousCameraScale = camera.xScale
         }
-        camera.setScale(previousCameraScale * 1 / sender.scale)        }
+        camera.setScale(previousCameraScale * 1 / sender.scale)
+        
+    }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        /*if let label = self.label {
+         label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+         }
+         
+         for t in touches { self.touchDown(atPoint: t.location(in: self)) } */
+        guard let touch = touches.first else {
+            return
+        }
+        //print("Select screen!")
+        let touchLocation = touch.location(in: self)
+        let touchedNode = self.atPoint(touchLocation)
+        touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        /*var boardSize = 0
+        switch (touchedNode.name) {
+        case "9x9":
+            boardSize = 9
+        case "16x16":
+            boardSize = 16
+        default:
+            boardSize = 30
+        } */
+        //print("\(boardSize)")
+        //var b = Board(boardSize: boardSize)
+        /*let newScene = SKScene(fileNamed: "SelectScene")
+         newScene!.scaleMode = scaleMode
+         let rev = SKTransition.fade(withDuration: 1.0)
+         view?.presentScene(newScene!, transition: rev) */
+        //let newScene = boardScene(b: b)
+        if touchedNode.name == "back" {
+            let newScene = SelectScene(fileNamed: "SelectScene")
+            newScene?.scaleMode = scaleMode
+            let rev = SKTransition.fade(withDuration: 1.0)
+            view?.presentScene(newScene!, transition: rev)
+        }
+        
+    }
     
     /*(init(b: Board) {
         board = b
