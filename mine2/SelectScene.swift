@@ -43,26 +43,35 @@ class SelectScene: SKScene {
         let touchLocation = touch.location(in: self)
         let touchedNode = self.atPoint(touchLocation)
         touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        var boardSize = 0
-        switch (touchedNode.name) {
-        case "9x9":
-            boardSize = 9
-        case "16x16":
-            boardSize = 16
-        default:
-            boardSize = 30
+        if touchedNode.name == "back" {
+            print("touched back")
+            let s = GameScene(fileNamed: "GameScene")
+            s?.scaleMode = scaleMode
+            let r = SKTransition.fade(withDuration: 1.0)
+            view?.presentScene(s!, transition: r)
         }
-        print("\(boardSize)")
-        var b = Board(boardSize: boardSize)
-        /*let newScene = SKScene(fileNamed: "SelectScene")
-        newScene!.scaleMode = scaleMode
-        let rev = SKTransition.fade(withDuration: 1.0)
-        view?.presentScene(newScene!, transition: rev) */
-        //let newScene = boardScene(b: b)
-        let newScene = boardScene(fileNamed: "boardScene")
-        newScene?.scaleMode = scaleMode
-        let rev = SKTransition.fade(withDuration: 1.0)
-        view?.presentScene(newScene!, transition: rev)
+        else {
+            var boardSize = 0
+            switch (touchedNode.name) {
+            case "9x9":
+                boardSize = 9
+            case "16x16":
+                boardSize = 16
+            default:
+                boardSize = 30
+            }
+            print("\(boardSize)")
+            var b = Board(boardSize: boardSize)
+            /*let newScene = SKScene(fileNamed: "SelectScene")
+            newScene!.scaleMode = scaleMode
+            let rev = SKTransition.fade(withDuration: 1.0)
+            view?.presentScene(newScene!, transition: rev) */
+            //let newScene = boardScene(b: b)
+            let newScene = boardScene(fileNamed: "boardScene")
+            newScene?.scaleMode = scaleMode
+            let rev = SKTransition.fade(withDuration: 1.0)
+            view?.presentScene(newScene!, transition: rev)
+        }
         
     }
     

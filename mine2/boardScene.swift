@@ -17,11 +17,13 @@ class boardScene: SKScene {
     var previousCameraScale = CGFloat()
     var timerLabel: SKLabelNode?
     var firstTap: Bool?
+    var backButton: SKLabelNode?
     /*var timerValue = 0 {
         didSet {
             timerLabel!.text! = "\(minutes):\(seconds)"
         }
     } */
+    var map: SKTileMapNode?
     var minutes = 0
     var seconds = 0 {
         didSet {
@@ -34,12 +36,21 @@ class boardScene: SKScene {
         timerLabel = childNode(withName: "timer") as? SKLabelNode
         firstTap = false
         cam = SKCameraNode()
+        map = childNode(withName: "tileMap") as? SKTileMapNode
+        //self.addChild(map!)
+        backButton = childNode(withName: "back") as? SKLabelNode
+        backButton!.removeFromParent()
+        timerLabel!.removeFromParent()
+        self.cam!.addChild(backButton!)
+        self.cam!.addChild(timerLabel!)
         self.camera = cam
         self.addChild(cam!)
         let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(self.handlePinchFrom(_:)))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector (self.handleTapFrom(recognizer:)))
         self.view?.addGestureRecognizer(tapGesture)
         self.view?.addGestureRecognizer(pinchGesture)
+        /*self.camera?.addChild(backButton!)
+        self.camera?.addChild(timerLabel!) */
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?){
@@ -115,7 +126,7 @@ class boardScene: SKScene {
         //print("Select screen!")
         let touchLocation = touch.location(in: self)
         let touchedNode = self.atPoint(touchLocation)
-        touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        //touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
         /*var boardSize = 0
         switch (touchedNode.name) {
         case "9x9":
@@ -133,6 +144,7 @@ class boardScene: SKScene {
          view?.presentScene(newScene!, transition: rev) */
         //let newScene = boardScene(b: b)
         if touchedNode.name == "back" {
+            touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
             let newScene = SelectScene(fileNamed: "SelectScene")
             newScene?.scaleMode = scaleMode
             let rev = SKTransition.fade(withDuration: 1.0)
