@@ -99,6 +99,7 @@ class boardScene: SKScene {
         let col = map.tileColumnIndex(fromPosition: loc)
         let row = map.tileRowIndex(fromPosition: loc)
         let tile = map.tileDefinition(atColumn: col, row: row)
+        tile!.textures[0] = SKTexture(imageNamed: "Grass_Grid_Center")
         print("Column: \(col), Row: \(row)")
     }
     
