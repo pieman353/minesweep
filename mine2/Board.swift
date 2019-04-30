@@ -110,15 +110,33 @@ class Board {
     
     func touch(x: Int, y: Int) -> Int {
         self.printBoard()
+        board[x][y] = "y"
         if isBomb(x: x, y: y) {
             self.printBoard()
+            print(checkWin())
             return -1
         }
         else {
             reveal(x: x, y: y)
             self.printBoard()
+            print(checkWin())
             return 1
         }
+    }
+    
+    func checkWin() -> Bool {
+        var numAst = 0
+        for i in 0..<size {
+            for j in 0..<size {
+                if board[i][j] == "*" {
+                    numAst = numAst + 1
+                    if !bombs.contains([i, j]) {
+                        return false
+                    }
+                }
+            }
+        }
+        return numAst == size+1
     }
     
     func reveal(x: Int, y: Int) {
@@ -148,7 +166,9 @@ class Board {
         }
         else {
             revealed[x][y] = 1
-            board[x][y] = "x"
+            if !isBomb(x: x, y: y) {
+                board[x][y] = "x"
+            }
         }
     }
 }

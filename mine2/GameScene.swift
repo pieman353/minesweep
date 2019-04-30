@@ -49,6 +49,10 @@ class GameScene: SKScene {
             let rev = SKTransition.fade(withDuration: 1.0)
             view?.presentScene(newScene!, transition: rev)
         }
+        if (touchedNode.name == "scores") {
+            print("touched score")
+            touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        }
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {

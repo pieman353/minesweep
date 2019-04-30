@@ -14,7 +14,7 @@ class boardScene: SKScene {
     //var camera: SKCameraNode?
     
     var board: Board?
-    
+    var sequence: SKAction?
     var cam: SKCameraNode?
     var previousCameraScale = CGFloat()
     var timerLabel: SKLabelNode?
@@ -29,7 +29,7 @@ class boardScene: SKScene {
     var minutes = 0
     var seconds = 0 {
         didSet {
-            print("did set!")
+            //print("did set!")
             timerLabel!.text! = String(format: "%02d:%02d", minutes, seconds)
         }
     }
@@ -80,10 +80,11 @@ class boardScene: SKScene {
             else {
                 self.seconds = self.seconds + 1
             }
-            print("\(self.minutes):\(self.seconds)")
+            //print("\(self.minutes):\(self.seconds)")
         })
-        let sequence = SKAction.sequence([wait, block])
-        run(SKAction.repeatForever(sequence), withKey: "time")
+        
+        sequence = SKAction.sequence([wait, block])
+        run(SKAction.repeatForever(sequence!), withKey: "time")
     }
     
     @objc func handleTapFrom(recognizer: UITapGestureRecognizer) {
@@ -94,16 +95,16 @@ class boardScene: SKScene {
             firstTap = true
             startTimer()
         }
-        let recognizerLoc = recognizer.location(in: recognizer.view!)
+        /*let recognizerLoc = recognizer.location(in: recognizer.view!)
         let loc = self.convertPoint(fromView: recognizerLoc)
         guard let map = childNode(withName: "tileMap") as? SKTileMapNode else {
             fatalError("Background node not loaded")
         }
         let col = map.tileColumnIndex(fromPosition: loc)
         let row = map.tileRowIndex(fromPosition: loc)
-        let tile = map.tileDefinition(atColumn: col, row: row)
+        let tile = map.tileDefinition(atColumn: col, row: row) */
         //tile!.textures[0] = SKTexture(imageNamed: "Grass_Grid_Center")
-        print("Column: \(col), Row: \(row)")
+        //print("Column: \(col), Row: \(row)")
     }
     
     func updateTileImages() {
@@ -111,7 +112,12 @@ class boardScene: SKScene {
             for y in 0..<9 {
                 let t = childNode(withName: "\(x)\(y)") as? SKSpriteNode
                 if board!.board[x][y] == "y" {
-                    t!.texture = SKTexture(imageNamed: "Images/unexplored.png")
+                    if board!.isBomb(x: x, y: y) {
+                        t!.texture = SKTexture(imageNamed: "Images/9")
+                    }
+                    else {
+                        t!.texture = SKTexture(imageNamed: "Images/unexplored.png")
+                    }
                 }
                 else if board!.board[x][y] == "x" {
                     if board!.isBomb(x: x, y: y) {
@@ -129,6 +135,9 @@ class boardScene: SKScene {
                     }
                     
                 }
+                else {
+                    t!.color = .red
+                }
             }
         }
     }
@@ -142,6 +151,30 @@ class boardScene: SKScene {
             previousCameraScale = camera.xScale
         }
         camera.setScale(previousCameraScale * 1 / sender.scale)
+        
+    }
+    
+    func lose() {
+        removeAction(forKey: "time")
+        let alert = UIAlertController(title: "Game over", message: "You lost!", preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) {
+            (action: UIAlertAction!) in
+            self.homeScreen()
+        }
+        alert.addAction(OKAction)
+        self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func homeScreen() {
+        let newScene = GameScene(fileNamed: "GameScene")
+        newScene?.scaleMode = scaleMode
+        let rev = SKTransition.fade(withDuration: 1.0)
+        view?.presentScene(newScene!, transition: rev)
+        
+    }
+    
+    func win() {
         
     }
     
@@ -187,6 +220,10 @@ class boardScene: SKScene {
             var x = Int(String(Array(name!)[0]))
             var y = Int(String(Array(name!)[1]))
             var result = board!.touch(x: x!, y: y!)
+            if result == -1 {
+                print("Lost!")
+                lose()
+            }
             updateTileImages()
         }
         

@@ -23,6 +23,9 @@
 		84A2938F227409B80069ED94 /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A2938E227409B80069ED94 /* MyTileSet.sks */; };
 		84DA2662227552380075D17D /* script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA2661227552380075D17D /* script.swift */; };
 		84F586632277E93F001BC2FE /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 84F586622277E93F001BC2FE /* Images */; };
+		84F5868722781C35001BC2FE /* mine2.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 84F5868522781C35001BC2FE /* mine2.xcdatamodeld */; };
+		84F5868922782126001BC2FE /* ScoreScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84F5868822782126001BC2FE /* ScoreScene.sks */; };
+		84F5868B22782143001BC2FE /* ScoreScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F5868A22782143001BC2FE /* ScoreScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +47,9 @@
 		84A2938E227409B80069ED94 /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
 		84DA2661227552380075D17D /* script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = script.swift; sourceTree = "<group>"; };
 		84F586622277E93F001BC2FE /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
+		84F5868622781C35001BC2FE /* mine2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = mine2.xcdatamodel; sourceTree = "<group>"; };
+		84F5868822782126001BC2FE /* ScoreScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ScoreScene.sks; sourceTree = "<group>"; };
+		84F5868A22782143001BC2FE /* ScoreScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,9 +84,12 @@
 			children = (
 				84F586622277E93F001BC2FE /* Images */,
 				846D9F2B2271300200058DCA /* AppDelegate.swift */,
+				84F5868522781C35001BC2FE /* mine2.xcdatamodeld */,
 				846D9F2D2271300200058DCA /* GameScene.sks */,
 				846D9F2F2271300200058DCA /* Actions.sks */,
 				846D9F312271300200058DCA /* GameScene.swift */,
+				84F5868A22782143001BC2FE /* ScoreScene.swift */,
+				84F5868822782126001BC2FE /* ScoreScene.sks */,
 				846D9F332271300200058DCA /* GameViewController.swift */,
 				846D9F352271300200058DCA /* Main.storyboard */,
 				846D9F382271300300058DCA /* Assets.xcassets */,
@@ -160,6 +169,7 @@
 				846D9F4E22713C6200058DCA /* boardScene.sks in Resources */,
 				846D9F2E2271300200058DCA /* GameScene.sks in Resources */,
 				84A2938F227409B80069ED94 /* MyTileSet.sks in Resources */,
+				84F5868922782126001BC2FE /* ScoreScene.sks in Resources */,
 				846D9F392271300300058DCA /* Assets.xcassets in Resources */,
 				846D9F3C2271300300058DCA /* LaunchScreen.storyboard in Resources */,
 				84F586632277E93F001BC2FE /* Images in Resources */,
@@ -179,6 +189,8 @@
 				84DA2662227552380075D17D /* script.swift in Sources */,
 				846D9F502271439100058DCA /* Board.swift in Sources */,
 				846D9F4A22713C1400058DCA /* boardScene.swift in Sources */,
+				84F5868722781C35001BC2FE /* mine2.xcdatamodeld in Sources */,
+				84F5868B22782143001BC2FE /* ScoreScene.swift in Sources */,
 				846D9F44227133AB00058DCA /* SelectScene.swift in Sources */,
 				846D9F2C2271300200058DCA /* AppDelegate.swift in Sources */,
 			);
@@ -378,6 +390,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		84F5868522781C35001BC2FE /* mine2.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				84F5868622781C35001BC2FE /* mine2.xcdatamodel */,
+			);
+			currentVersion = 84F5868622781C35001BC2FE /* mine2.xcdatamodel */;
+			path = mine2.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 846D9F202271300200058DCA /* Project object */;
 }
