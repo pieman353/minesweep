@@ -127,21 +127,20 @@ class Board {
     }
     
     func checkWin() -> Int {
-        var numAst = 0
         for i in 0..<size {
             for j in 0..<size {
                 if board[i][j] == "*" {
-                    numAst = numAst + 1
                     if !bombs.contains([i, j]) {
                         return -1
                     }
                 }
             }
         }
-        if numAst == bombs.count {
+        /*if numAst == bombs.count {
             return 1
         }
-        return -1
+        return -1 */
+        return 1
     }
     
     func reveal(x: Int, y: Int) {
