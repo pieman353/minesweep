@@ -11,6 +11,9 @@ import CoreData
 import SpriteKit
 
 class ScoreScene: SKScene {
+    
+    var scorelabel: SKLabelNode?
+    
     override func didMove(to view: SKView) {
         readScores()
         
@@ -32,15 +35,22 @@ class ScoreScene: SKScene {
     }
     
     func readScores() {
+        scorelabel = childNode(withName: "scorelabel") as? SKLabelNode!
         let del: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
         let con: NSManagedObjectContext = del.persistentContainer.viewContext
         let ent = NSEntityDescription.entity(forEntityName: "Entity", in: con)
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Entity")
+        let sort = NSSortDescriptor(key: #keyPath(Entity.score), ascending: true)
+        request.sortDescriptors = [sort]
         request.returnsObjectsAsFaults = false
+        scorelabel!.text = ""
+        scorelabel!.numberOfLines = 50
+        scorelabel!.preferredMaxLayoutWidth = 500
         do {
             let result = try con.fetch(request)
             for data in result as! [NSManagedObject] {
-                print(data.value(forKey: "score" as! String))
+                //print(data.value(forKey: "score" as! String))
+                scorelabel!.text = scorelabel!.text! + "\((data.value(forKey: "name" as! String!))!): \((data.value(forKey: "score" as! String!))!)\n"
             }
         } catch {
             print("Failed")

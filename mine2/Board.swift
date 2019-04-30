@@ -138,7 +138,7 @@ class Board {
                 }
             }
         }
-        if numAst == size+1 {
+        if numAst == bombs.count {
             return 1
         }
         return -1
