@@ -43,7 +43,6 @@ class GameScene: SKScene {
         if (touchedNode.name == "begin") {
             print("touched begin")
             touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-            //let newScene = SelectScene()
             let newScene = SelectScene(fileNamed: "SelectScene")
             newScene!.scaleMode = scaleMode
             let rev = SKTransition.fade(withDuration: 1.0)
