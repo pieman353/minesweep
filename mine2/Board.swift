@@ -97,4 +97,8 @@ class Board {
             }
         }
     }
+    
+    func isCovered(x: Int, y: Int) -> Bool {
+        return board[x][y] == "*"
+    }
 }

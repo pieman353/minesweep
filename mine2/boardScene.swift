@@ -13,6 +13,8 @@ class boardScene: SKScene {
     //var board: Board
     //var camera: SKCameraNode?
     
+    var board: Board?
+    
     var cam: SKCameraNode?
     var previousCameraScale = CGFloat()
     var timerLabel: SKLabelNode?
@@ -33,6 +35,7 @@ class boardScene: SKScene {
     }
     
     override func didMove(to view: SKView) {
+        board = Board(boardSize: 9)
         timerLabel = childNode(withName: "timer") as? SKLabelNode
         firstTap = false
         cam = SKCameraNode()
@@ -99,8 +102,19 @@ class boardScene: SKScene {
         let col = map.tileColumnIndex(fromPosition: loc)
         let row = map.tileRowIndex(fromPosition: loc)
         let tile = map.tileDefinition(atColumn: col, row: row)
-        tile!.textures[0] = SKTexture(imageNamed: "Grass_Grid_Center")
+        //tile!.textures[0] = SKTexture(imageNamed: "Grass_Grid_Center")
         print("Column: \(col), Row: \(row)")
+    }
+    
+    func updateTileImages() {
+        for x in 0..<9 {
+            for y in 0..<9 {
+                let t = childNode(withName: "\(x)\(y)") as? SKSpriteNode
+                if board!.isCovered(x: x, y: y) {
+                    t!.texture = SKTexture(imageNamed: "Images/unexplored.png")
+                }
+            }
+        }
     }
     
     @objc func handlePinchFrom(_ sender: UIPinchGestureRecognizer) {
@@ -116,6 +130,7 @@ class boardScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        updateTileImages()
         /*if let label = self.label {
          label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
          }

@@ -22,6 +22,7 @@
 		846D9F502271439100058DCA /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846D9F4F2271439100058DCA /* Board.swift */; };
 		84A2938F227409B80069ED94 /* MyTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = 84A2938E227409B80069ED94 /* MyTileSet.sks */; };
 		84DA2662227552380075D17D /* script.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DA2661227552380075D17D /* script.swift */; };
+		84F586632277E93F001BC2FE /* Images in Resources */ = {isa = PBXBuildFile; fileRef = 84F586622277E93F001BC2FE /* Images */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		846D9F4F2271439100058DCA /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		84A2938E227409B80069ED94 /* MyTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyTileSet.sks; sourceTree = "<group>"; };
 		84DA2661227552380075D17D /* script.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = script.swift; sourceTree = "<group>"; };
+		84F586622277E93F001BC2FE /* Images */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Images; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +76,7 @@
 		846D9F2A2271300200058DCA /* mine2 */ = {
 			isa = PBXGroup;
 			children = (
+				84F586622277E93F001BC2FE /* Images */,
 				846D9F2B2271300200058DCA /* AppDelegate.swift */,
 				846D9F2D2271300200058DCA /* GameScene.sks */,
 				846D9F2F2271300200058DCA /* Actions.sks */,
@@ -159,6 +162,7 @@
 				84A2938F227409B80069ED94 /* MyTileSet.sks in Resources */,
 				846D9F392271300300058DCA /* Assets.xcassets in Resources */,
 				846D9F3C2271300300058DCA /* LaunchScreen.storyboard in Resources */,
+				84F586632277E93F001BC2FE /* Images in Resources */,
 				846D9F302271300200058DCA /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
