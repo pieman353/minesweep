@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 import SpriteKit
 
 class boardScene: SKScene {
@@ -26,6 +27,7 @@ class boardScene: SKScene {
         }
     } */
     var map: SKTileMapNode?
+    var firstTouch: Bool?
     var minutes = 0
     var seconds = 0 {
         didSet {
@@ -35,7 +37,8 @@ class boardScene: SKScene {
     }
     
     override func didMove(to view: SKView) {
-        board = Board(boardSize: 9)
+        //board = Board(boardSize: 9)
+        firstTouch = false
         timerLabel = childNode(withName: "timer") as? SKLabelNode
         firstTap = false
         cam = SKCameraNode()
@@ -189,13 +192,31 @@ class boardScene: SKScene {
         alert.addTextField(configurationHandler: configureTextField)
         let OKAction = UIAlertAction(title: "OK", style: .default) {
             (action: UIAlertAction!) in
+            let val = alert.textFields?.first?.text
+            self.saveScore(name: val!, score: self.timerLabel!.text!)
             self.homeScreen()
         }
         alert.addAction(OKAction)
-        self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)    }
+        self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)
+        
+    }
+    
+    func saveScore(name: String, score: String) {
+        let del: AppDelegate = (UIApplication.shared.delegate as! AppDelegate)
+        let con: NSManagedObjectContext = del.persistentContainer.viewContext
+        let ent = NSEntityDescription.entity(forEntityName: "Entity", in: con)
+        let newScore = NSManagedObject(entity: ent!, insertInto: con)
+        newScore.setValue(name, forKey: "name")
+        newScore.setValue(score, forKey: "score")
+        do {
+            try con.save()
+        } catch {
+            print("Failed saving")
+        }
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        updateTileImages()
+        
         /*if let label = self.label {
          label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
          }
@@ -235,6 +256,11 @@ class boardScene: SKScene {
             var name = touchedNode.name
             var x = Int(String(Array(name!)[0]))
             var y = Int(String(Array(name!)[1]))
+            if (!firstTouch!) {
+                board = Board(boardSize: 9, x: x!, y: y!)
+                firstTouch = true
+            }
+            updateTileImages()
             var result = board!.touch(x: x!, y: y!)
             if board!.isBomb(x: x!, y: y!) {
                 lose()

@@ -14,7 +14,7 @@ class SelectScene: SKScene {
     override func didMove(to view: SKView) {
         
         // Get label node from scene and store it for use later
-       print("ran")
+       //print("ran")
         
         // Create shape node to use during mouse interaction
         /*let w = (self.size.width + self.size.height) * 0.05
@@ -39,19 +39,20 @@ class SelectScene: SKScene {
         guard let touch = touches.first else {
             return
         }
-        print("Select screen!")
         let touchLocation = touch.location(in: self)
         let touchedNode = self.atPoint(touchLocation)
-        touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
+        //
         if touchedNode.name == "back" {
             print("touched back")
+            touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
             let s = GameScene(fileNamed: "GameScene")
-            s?.scaleMode = scaleMode
+            s!.scaleMode = scaleMode
             let r = SKTransition.fade(withDuration: 1.0)
             view?.presentScene(s!, transition: r)
         }
-        else {
+        else if touchedNode.name == "9x9" || touchedNode.name == "16x16" || touchedNode.name == "30x30" {
             var boardSize = 0
+            touchedNode.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
             switch (touchedNode.name) {
             case "9x9":
                 boardSize = 9
@@ -61,14 +62,14 @@ class SelectScene: SKScene {
                 boardSize = 30
             }
             print("\(boardSize)")
-            var b = Board(boardSize: boardSize)
+            //var b = Board(boardSize: boardSize)
             /*let newScene = SKScene(fileNamed: "SelectScene")
             newScene!.scaleMode = scaleMode
             let rev = SKTransition.fade(withDuration: 1.0)
             view?.presentScene(newScene!, transition: rev) */
             //let newScene = boardScene(b: b)
             let newScene = boardScene(fileNamed: "boardScene")
-            newScene?.scaleMode = scaleMode
+            newScene!.scaleMode = scaleMode
             let rev = SKTransition.fade(withDuration: 1.0)
             view?.presentScene(newScene!, transition: rev)
         }

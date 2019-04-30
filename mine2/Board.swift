@@ -14,9 +14,13 @@ class Board {
     var adjacentBombs: [[Int]]
     var bombs: [[Int]]
     var revealed: [[Int]]
+    var firstX: Int
+    var firstY: Int
     
-    init(boardSize: Int) {
+    init(boardSize: Int, x: Int, y: Int) {
         size = boardSize
+        firstX = x
+        firstY = y
         board = Array(repeating: Array(repeating: "*", count: size), count: size)
         bombs = [[Int]]()
         adjacentBombs = Array(repeating: Array(repeating: 0, count: size), count: size)
@@ -51,10 +55,10 @@ class Board {
     }
     
     func addBombs() {
-        for _ in 1...(size+1) {
+        for _ in 0...(size+1) {
             var rand1 = Int.random(in: 0..<size)
             var rand2 = Int.random(in: 0..<size)
-            while (bombs.contains([rand1, rand2])) {
+            while (bombs.contains([rand1, rand2]) && (rand1 == firstX && rand2 == firstY)) {
                 rand1 = Int.random(in: 0..<size)
                 rand2 = Int.random(in: 0..<size)
             }
