@@ -110,8 +110,12 @@ class boardScene: SKScene {
         for x in 0..<9 {
             for y in 0..<9 {
                 let t = childNode(withName: "\(x)\(y)") as? SKSpriteNode
-                if board!.isCovered(x: x, y: y) {
+                if board!.board[x][y] == "y" {
                     t!.texture = SKTexture(imageNamed: "Images/unexplored.png")
+                }
+                else if board!.board[x][y] == "x" {
+                    var mines = board!.adjacentBombs[x][y]
+                    t!.texture = SKTexture(imageNamed: "Images/\(mines)")
                 }
             }
         }
@@ -165,6 +169,13 @@ class boardScene: SKScene {
             newScene?.scaleMode = scaleMode
             let rev = SKTransition.fade(withDuration: 1.0)
             view?.presentScene(newScene!, transition: rev)
+        }
+        else {
+            var name = touchedNode.name
+            var x = Int(String(Array(name!)[0]))
+            var y = Int(String(Array(name!)[1]))
+            var result = board!.touch(x: x!, y: y!)
+            updateTileImages()
         }
         
     }
