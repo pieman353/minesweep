@@ -116,7 +116,12 @@ class boardScene: SKScene {
                         t!.texture = SKTexture(imageNamed: "Images/9")
                     }
                     else {
+                        if board!.adjacentBombs[x][y] == 0 {
                         t!.texture = SKTexture(imageNamed: "Images/unexplored.png")
+                        }
+                        else {
+                            t!.texture = SKTexture(imageNamed: "Images/\(board!.adjacentBombs[x][y])")
+                        }
                     }
                 }
                 else if board!.board[x][y] == "x" {
@@ -174,9 +179,20 @@ class boardScene: SKScene {
         
     }
     
-    func win() {
-        
+    func configureTextField(textField: UITextField!) {
+        textField.text = "Enter your name"
     }
+    
+    func win() {
+        removeAction(forKey: "time")
+        let alert = UIAlertController(title: "Hooray!", message: "You won!", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: configureTextField)
+        let OKAction = UIAlertAction(title: "OK", style: .default) {
+            (action: UIAlertAction!) in
+            self.homeScreen()
+        }
+        alert.addAction(OKAction)
+        self.view?.window?.rootViewController?.present(alert, animated: true, completion: nil)    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         updateTileImages()
@@ -220,9 +236,16 @@ class boardScene: SKScene {
             var x = Int(String(Array(name!)[0]))
             var y = Int(String(Array(name!)[1]))
             var result = board!.touch(x: x!, y: y!)
-            if result == -1 {
+            if board!.isBomb(x: x!, y: y!) {
+                lose()
+            }
+            /*if result == -1 {
                 print("Lost!")
                 lose()
+            } */
+            if result == 1 {
+                print("Won!")
+                win()
             }
             updateTileImages()
         }

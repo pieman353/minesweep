@@ -113,30 +113,31 @@ class Board {
         board[x][y] = "y"
         if isBomb(x: x, y: y) {
             self.printBoard()
-            print(checkWin())
-            return -1
+            return checkWin()
         }
         else {
             reveal(x: x, y: y)
             self.printBoard()
-            print(checkWin())
-            return 1
+            return checkWin()
         }
     }
     
-    func checkWin() -> Bool {
+    func checkWin() -> Int {
         var numAst = 0
         for i in 0..<size {
             for j in 0..<size {
                 if board[i][j] == "*" {
                     numAst = numAst + 1
                     if !bombs.contains([i, j]) {
-                        return false
+                        return -1
                     }
                 }
             }
         }
-        return numAst == size+1
+        if numAst == size+1 {
+            return 1
+        }
+        return -1
     }
     
     func reveal(x: Int, y: Int) {
