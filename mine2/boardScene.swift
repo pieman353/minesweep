@@ -114,8 +114,20 @@ class boardScene: SKScene {
                     t!.texture = SKTexture(imageNamed: "Images/unexplored.png")
                 }
                 else if board!.board[x][y] == "x" {
-                    var mines = board!.adjacentBombs[x][y]
-                    t!.texture = SKTexture(imageNamed: "Images/\(mines)")
+                    if board!.isBomb(x: x, y: y) {
+                        t!.texture = SKTexture(imageNamed: "Images/9")
+                    }
+                    else {
+                        var mines = board!.adjacentBombs[x][y]
+                        if mines == 9 {
+                            t!.color = .red
+                        }
+                        else {
+                            t!.texture = SKTexture(imageNamed: "Images/\(mines)")
+                            
+                        }
+                    }
+                    
                 }
             }
         }
@@ -170,7 +182,7 @@ class boardScene: SKScene {
             let rev = SKTransition.fade(withDuration: 1.0)
             view?.presentScene(newScene!, transition: rev)
         }
-        else {
+        else if touchedNode.name != nil && touchedNode.name!.count == 2 {
             var name = touchedNode.name
             var x = Int(String(Array(name!)[0]))
             var y = Int(String(Array(name!)[1]))
